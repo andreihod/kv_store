@@ -5,18 +5,9 @@ use tokio::net::{
 };
 use tokio_util::codec::{FramedRead, FramedWrite, LengthDelimitedCodec};
 
-#[derive(Serialize, Deserialize, PartialEq, Debug)]
-pub enum Request {
-    Put(String, String, Option<i32>),
-    Get(String),
-    Delete(String),
-}
-
-#[derive(Serialize, Deserialize, PartialEq, Debug)]
-pub enum Response {
-    Success(Option<String>),
-    Failure(String),
-}
+pub mod client;
+pub mod server;
+pub mod storage;
 
 pub fn read_write_streams(
     stream: TcpStream,
@@ -30,4 +21,17 @@ pub fn read_write_streams(
     let read_length_delimited = FramedRead::new(read_socket, LengthDelimitedCodec::new());
 
     (read_length_delimited, write_length_delimited)
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
+pub enum Request {
+    Put(String, String, Option<i32>),
+    Get(String),
+    Delete(String),
+}
+
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
+pub enum Response {
+    Success(Option<String>),
+    Failure(String),
 }

@@ -12,3 +12,12 @@ tokio-serde = { version = "0.8.0", features = ["bincode"] }
 futures = "0.3.14"
 serde = { version = "1.0.125", features = ["derive"] }
 tokio-util = { version = "0.6.5", features = ["codec"] }
+chrono = "0.4.19"
+rand = "0.8.3"
+
+[dev-dependencies]
+criterion = { version = "0.3.4", features = ["async_tokio"] }
+
+[[bench]]
+name = "benchmark"
+harness = false
